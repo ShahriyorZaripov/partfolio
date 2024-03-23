@@ -5,21 +5,6 @@
       <h1>Send me a message</h1>
       <span>Write to me if you have any questions or suggestions.</span>
       <div class="form">
-        <!-- <form @submit.prevent>
-          <div>
-            <label for="/">ism</label>
-            <input type="text" v-model="data.name" />
-          </div>
-          <div>
-            <label for="/">tel</label>
-            <input type="number" v-model="data.phone" />
-          </div>
-          <div>
-            <label for="/">message</label>
-            <textarea rows="3" v-model="data.message"></textarea>
-          </div>
-          <button @click="Submit">junatish</button>
-        </form> -->
         <form @submit.prevent>
           <div class="name">
             <label for="exampleFormControlInput1" class="form-label"
@@ -27,10 +12,9 @@
             >
             <input
               type="text"
-              class="form-control"
+              class="form-control input-field"
               placeholder=" Enter your name"
               v-model="data.name"
-              :class="nameIsvalid ? '':'border_danger'"
             />
           </div>
           <div class="email">
@@ -39,10 +23,9 @@
             >
             <input
               type="email"
-              class="form-control"
+              class="form-control input-field"
               placeholder=" Enter your email address"
               v-model="data.phone"
-              :class="phoneIsvalid ? '':'border_danger'"
             />
           </div>
           <div class="message">
@@ -50,14 +33,14 @@
               >Your Message
             </label>
             <textarea
-              class="form-control"
+              class="form-control input-field"
               v-model="data.message"
               placeholder="Hello, could you write a brief description of what to do?"
               id="exampleFormControlTextarea1"
               rows="4" 
               cols="50"
-              :class="messageIsvalid ? '':'border_danger'"
             ></textarea>
+
           </div>
         </form>
         <div class="btn" @click="Submit">︻╦╤─— Shoot</div>
@@ -72,27 +55,17 @@ export default {
     return {
       data: {
         name: null,
-        phone: null,
+        email: null,
         message: null,
       },
       token: "6979367142:AAEpWxDSh_0ZLVAkbcCrzZ9_tTAivVaPink",
       myId: "1394289473",
     };
   },
-  computed:{
-    nameIsvalid(){
-      return !!this.data.name
-    },
-    phoneIsvalid(){
-      return !!this.data.phone
-    },
-    messageIsvalid(){
-      return !!this.data.message
-    },
-  },
+
   methods: {
       Submit() {
-      let data = `Ism: ${this.data.name}, Telefon: ${this.data.phone}, Xabar: ${this.data.message}`;
+      let data = `Ism: ${this.data.name}, Email: ${this.data.email}, Xabar: ${this.data.message}`;
       this.$axios
         .post("https://api.telegram.org/bot" + this.token + "/sendMessage", {
           chat_id: this.myId,
@@ -104,7 +77,7 @@ export default {
             // this.success = true;
             this.data = {
               name: "",
-              phone: "",
+              email: "",
               message: "",
             };
             setTimeout(()=>{
@@ -189,10 +162,18 @@ textarea {
   padding-top: 5px;
   margin: 5px auto;
   border: none;
-  border-bottom: 1.5px solid #4831d4;
   width: 100%;
 }
+/*  */
+.input-field {
+    outline: none; 
+    border-bottom: 1.5px solid #4831d4; /* Faqat pastki chiziqli border qo'shamiz */
+}
 
+.input-field:focus {
+    border-bottom: 1.5px solid #ff0000; /* Cilikga focus bo'lganda rangni o'zgartiramiz */
+}
+/*  */
 .btn {
   margin: 30px auto;
   max-width: 300px;
@@ -255,9 +236,9 @@ textarea {
     padding: 0;
   }
 }
-.border_danger{
-  border: 1px solid red;
-}
+/* .border_danger{
+  border: none;
+} */
 textarea{
   resize: none;
 }

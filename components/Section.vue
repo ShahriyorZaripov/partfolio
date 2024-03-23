@@ -69,11 +69,14 @@ export default {};
 .text {
   max-width: 550px;
   padding: 20px;
+  
 }
 .text h1 {
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.363);
   font-size: 50px;
   color: #4831d4;
   font-weight: 800;
+
 }
 .text span {
   display: block;
